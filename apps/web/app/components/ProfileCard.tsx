@@ -17,38 +17,61 @@ import React from 'react';
 import { profileResponseSchema } from '../api/profile';
 import { z } from 'zod';
 
-
-const ProfileCard = ({ profileData, showEdit }: { profileData: z.infer<typeof profileResponseSchema>; showEdit: boolean }) => {
+const ProfileCard = ({
+  profileData,
+  showEdit,
+}: {
+  profileData: z.infer<typeof profileResponseSchema>;
+  showEdit: boolean;
+}) => {
   return (
-    <Card className='w-2/3'>
+    <Card className="w-2/3">
       <CardHeader>
         <CardTitle className="flex justify-start gap-12 items-center">
-          <Avatar>
-            <AvatarImage src={profileData.photo} alt="Profile Image" />
+          <Avatar className="w-12 h-12">
+            <AvatarImage
+              src={profileData.photo}
+              alt="Profile Image"
+              className="object-scale-down bg-gray-300"
+            />
             <AvatarFallback>:)</AvatarFallback>
           </Avatar>
           {profileData.name}
         </CardTitle>
-        <CardDescription>{profileData.headline}</CardDescription>
+        <CardDescription className="pt-1">
+          {profileData.headline}
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <p>Bio: {profileData.bio}</p>
-        <p>
-          Interests:{' '}
-          {(profileData.profileTags || []).map((tagInfo) => (
-            <span key={tagInfo.tagId} className='bg-gray-300 px-1 rounded-2xl mx-1 inline-flex'>{tagInfo.tag.name}</span>
-          ))}
+        <p className="pb-2">
+          <strong>Bio:</strong> {profileData.bio}
         </p>
-        <p>Email: {profileData.user.email}</p>
+        {profileData.profileTags.length ? (
+          <p className="pb-2">
+            <strong>Interests: </strong>
+            {profileData.profileTags.map((tagInfo) => (
+              <span
+                key={tagInfo.tagId}
+                className="bg-gray-300 px-1 rounded-2xl mx-1 inline-flex font-normal"
+              >
+                {tagInfo.tag.name}
+              </span>
+            ))}
+          </p>
+        ) : null}
+        <p className="pb-2">
+          <strong>Email:</strong> {profileData.user.email}
+        </p>
       </CardContent>
       <CardFooter>
-        {showEdit && <Button asChild>
-          <Link href={`/profile/${profileData.id}/edit/`}>Edit</Link>
-        </Button>}
+        {showEdit && (
+          <Button asChild>
+            <Link href={`/profile/${profileData.id}/edit/`}>Edit</Link>
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
-}
-
+};
 
 export default ProfileCard;

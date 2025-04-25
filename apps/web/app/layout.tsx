@@ -49,6 +49,9 @@ export default async function RootLayout({
               { profileId ?
                 <>
                   <Button asChild>
+                    <Link href={`/feed`}>Feed</Link>
+                  </Button>
+                  <Button asChild>
                     <Link href={`/profile/${profileId}`}>View Profile</Link>
                   </Button>
                   <Button asChild>
