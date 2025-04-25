@@ -22,7 +22,9 @@ export const profileResponseSchema = upsertProfileFormSchema
   .omit({ tags: true })
   .extend({
     id: z.string(),
-    profileTags: z.array(z.object({ tagId: z.string(), tag: z.object({ name: z.string() }) })),
+    profileTags: z.array(
+      z.object({ tagId: z.string(), tag: z.object({ name: z.string() }) }),
+    ),
     userId: z.string(),
   });
 
@@ -79,12 +81,16 @@ export const getProfileByClerkId = async (
 export const updateProfile = async (
   data: z.infer<typeof upsertProfileFormSchema>,
   id: string,
+  token: string | null
 ) => {
   const url = `${API_URL}/profile/`;
   try {
     const response = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({ ...data, id }),
     });
     if (!response.ok) {

@@ -93,7 +93,8 @@ const ProfilePage = ({ params }: { params: Promise<{ id: string }> }) => {
       const tagById = data.tags.map((tag) => ({
         id: allTags.find((t) => t.name === tag)?.id,
       }));
-      await updateProfile({ ...data, tags: tagById.filter(isTag) }, id);
+      const token = await getToken();
+      await updateProfile({ ...data, tags: tagById.filter(isTag) }, id, token);
       toast(`Profile ${actionType} successful`, {
         action: {
           label: 'Go To Profile',

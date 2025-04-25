@@ -46,6 +46,9 @@ export default async function RootLayout({
               <SignUpButton />
             </SignedOut>
             <SignedIn>
+            <Button asChild>
+                <Link href={`/profile/${loginId}`}>View Profile</Link>
+              </Button>
               <Button asChild>
                 <Link href={`/profile/${loginId}/edit`}>Edit Profile</Link>
               </Button>

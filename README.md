@@ -1,4 +1,6 @@
 # Profile Starter
+Demo site: https://www.lemus.dev/
+
 This is a full stack that displays a profile feed of users. These users can edit their own profiles.
 
 Authentication was done by using Clerk, to avoid building solution. The frontend is done with Next.js with Tanstack query making calls to the backend. The edit form is done using react-form, and all styling is done using tailwind with shadcn as it's component library.
