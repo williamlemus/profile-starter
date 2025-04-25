@@ -11,9 +11,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // TODO: Change this when deploying!!!
-  // url      = env("DATABASE_URL")
-  url = "postgresql://username:password@localhost:5432/mydb?schema=public"
+  url      = env("DATABASE_URL")
 }
 
 // Models
