@@ -1,18 +1,21 @@
-# Turborepo starter
+# Profile Starter
+This is a full stack that displays a profile feed of users. These users can edit their own profiles.
 
-This is a community-maintained example. If you experience a problem, please submit a pull request with a fix. GitHub Issues will be closed.
+Authentication was done by using Clerk, to avoid building solution. The frontend is done with Next.js with Tanstack query making calls to the backend. The edit form is done using react-form, and all styling is done using tailwind with shadcn as it's component library.
 
-## Using this example
+The backend database model is as follows:
+User:
+    - Contains info that will be directly managed by Clerk, should only used for email.
+    - Has a one-to-one relation with Profile
+Profile:
+    - Contains all the information for the user(bio, headline, photo url, etc)
+    - Has a many to many relation to profile tags
+Tag:
+    - Contains interests
+    - has a many to many relationship to profile tags
+ProfileTag:
+    - Join table for a Profile's tags.
 
-Run the following command:
-
-```bash
-npx create-turbo@latest -e with-nestjs
-```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
 
 ### Apps and Packages
 
@@ -21,26 +24,10 @@ This Turborepo includes the following packages/apps:
     │   ├── api                       # NestJS app (https://nestjs.com).
     │   └── web                       # Next.js app (https://nextjs.org).
     └── packages
-        ├── @repo/api                 # Shared `NestJS` resources.
         ├── @repo/eslint-config       # `eslint` configurations (includes `prettier`)
-        ├── @repo/jest-config         # `jest` configurations
         ├── @repo/typescript-config   # `tsconfig.json`s used throughout the monorepo
-        └── @repo/ui                  # Shareable stub React component library.
+        └── @repo/ui                  #  shaddn components
 
-Each package and application are 100% [TypeScript](https://www.typescriptlang.org/) safe.
-
-### Utilities
-
-This `Turborepo` has some additional tools already set for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type-safety
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-- [Jest](https://prettier.io) & [Playwright](https://playwright.dev/) for testing
-
-### Commands
-
-This `Turborepo` already configured useful commands for all your apps and packages.
 
 #### Build
 
@@ -55,20 +42,10 @@ pnpm run build
 #### Develop
 
 ```bash
+# start up database using provided dockerfile:
+podman-compose up -d
 # Will run the development server for all the app & packages with the supported `dev` script.
 pnpm run dev
-```
-
-#### test
-
-```bash
-# Will launch a test suites for all the app & packages with the supported `test` script.
-pnpm run test
-
-# You can launch e2e testes with `test:e2e`
-pnpm run test:e2e
-
-# See `@repo/jest-config` to customize the behavior.
 ```
 
 #### Lint
@@ -86,35 +63,3 @@ pnpm run lint
 # See `@repo/eslint-config/prettier-base.js` to customize the behavior.
 pnpm format
 ```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```bash
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```bash
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/docs/reference/command-line-reference)
