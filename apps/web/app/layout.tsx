@@ -29,10 +29,10 @@ export default async function RootLayout({
 }: Readonly<PropsWithChildren>) {
   const { userId, getToken } = await auth();
   const token = await getToken();
-  let loginId;
+  let profileId;
   try {
     const { id } = await getProfileByClerkId(userId, token);
-    loginId = id;
+    profileId = id;
   } catch {
     // do nothing
   }
@@ -46,12 +46,18 @@ export default async function RootLayout({
               <SignUpButton />
             </SignedOut>
             <SignedIn>
-            <Button asChild>
-                <Link href={`/profile/${loginId}`}>View Profile</Link>
-              </Button>
-              <Button asChild>
-                <Link href={`/profile/${loginId}/edit`}>Edit Profile</Link>
-              </Button>
+              { profileId ?
+                <>
+                  <Button asChild>
+                    <Link href={`/profile/${profileId}`}>View Profile</Link>
+                  </Button>
+                  <Button asChild>
+                    <Link href={`/profile/${profileId}/edit`}>
+                      Edit Profile
+                    </Link>
+                  </Button>
+                </> : null
+              }
               <UserButton />
             </SignedIn>
           </header>
