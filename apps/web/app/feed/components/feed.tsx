@@ -17,7 +17,7 @@ const Feed = () => {
   return <div>
     <h1 className='text-3xl my-10 mx-auto w-10'>Feed</h1>
 
-    <div className='w-full flex flex-col items-center gap-4'>
+    <div className='w-full flex flex-col items-center gap-4 py-8'>
         {data?.map((profileData) => <ProfileCard key={profileData.id} profileData={profileData} showEdit={false} />)} 
         </div>
     </div>;

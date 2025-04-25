@@ -52,7 +52,7 @@ const ProfileCard = ({
             {profileData.profileTags.map((tagInfo) => (
               <span
                 key={tagInfo.tagId}
-                className="bg-gray-300 px-1 rounded-2xl mx-1 inline-flex font-normal"
+                className="bg-gray-300 px-2 rounded-2xl mx-1 inline-flex font-normal"
               >
                 {tagInfo.tag.name}
               </span>
