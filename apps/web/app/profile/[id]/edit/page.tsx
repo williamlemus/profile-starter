@@ -119,7 +119,7 @@ const ProfilePage = ({ params }: { params: Promise<{ id: string }> }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit, onErrors)}
-        className="space-y-8 w-2/3 m-auto pt-8"
+        className="space-y-8 w-2/3 m-auto pt-8 pb-5"
       >
         <FormField
           control={form.control}

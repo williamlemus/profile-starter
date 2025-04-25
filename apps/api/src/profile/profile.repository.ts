@@ -51,28 +51,11 @@ export class ProfileRepository {
           update: {  email }
         },
         profileTags: {
+          deleteMany: {},
           createMany: {
             data: tags.map((tag) => ({ tagId: tag.id })),
             skipDuplicates: true,
           },
-        },
-      },
-    });
-  }
-
-  // blank out instead of hard delete
-  async deleteProfile(id: string) {
-    // check user id is equal to logged in user(maybe decorator can do that)
-    // eventually this will call updateProfile with blank data
-    return this.prisma.profile.update({
-      where: { id },
-      data: {
-        name: null,
-        bio: null,
-        headline: null,
-        photo: null,
-        profileTags: {
-          update: [],
         },
       },
     });
